@@ -33,6 +33,8 @@ Unless you are using Laravel 5.5 (in which case, package auto-discovery will do 
 
 ``` php
 
+use jpmurray\LaravelCountdown\Countdown;
+
 // To get time from 5 years ago until now, you can do the following.
 // Note that you can send a string to the from and to methods, we will
 // try to parse it with Carbon behind the scene
