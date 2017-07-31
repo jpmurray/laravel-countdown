@@ -1,0 +1,42 @@
+{
+    "name": "jpmurray/laravel-countdown",
+    "type": "library",
+    "description": "Provide an easy class easy way to get the time difference between two dates, with an extra bonus trait for eloquent",
+    "keywords": [
+        "jpmurray",
+        "countdown",
+        "time",
+        "dates",
+        "elapsed",
+        "until"
+    ],
+    "homepage": "https://github.com/jpmurray/laravel-countdown",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jean-Philippe Murray",
+            "email": "himself@jpmurray.net",
+            "homepage": "https://github.com/jpmurray/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "illuminate/support": "5.3.* || 5.4.* || 5.5.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "jpmurray\\LaravelCountdown\\": "src/"
+        }
+    },
+    "extra": {
+	    "laravel": {
+	        "providers": [
+	            "jpmurray\\LaravelCountdown\\CountdownServiceProvider"
+	        ],
+	        "aliases": {
+	            "Countdown": "jpmurray\\LaravelCountdown\\Facades\\CountdownFacade"
+	        }
+	    }
+	}
+}
