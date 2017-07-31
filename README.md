@@ -24,8 +24,8 @@ Unless you are using Laravel 5.5 (in which case, package auto-discovery will do 
 // ...
 
 'aliases' => [
-	// others
-	'Countdown' => jpmurray\LaravelCountdown\Facades\CountdownFacade::class,
+    // others
+    'Countdown' => jpmurray\LaravelCountdown\Facades\CountdownFacade::class,
 ];
 ```
 
