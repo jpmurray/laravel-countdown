@@ -5,7 +5,7 @@ use Faker;
 use Tests\TestCase;
 use Carbon\Carbon;
 use jpmurray\LaravelCountdown\Countdown;
-Use Tests\User;
+use Tests\User;
 
 class CountdownEloquentTraitTest extends TestCase
 {

@@ -6,7 +6,8 @@ use Carbon\Carbon;
 use Countdown;
 
 class CountDownTest extends TestCase
-{    
+{
+
     /**
      * @dataProvider providerDates
      */
@@ -28,10 +29,10 @@ class CountDownTest extends TestCase
     {
         $this->assertEquals(7, $countdown->years);
         $this->assertEquals(33, $countdown->weeks);
-        $this->assertEquals(2, $countdown->days); 
+        $this->assertEquals(2, $countdown->days);
         $this->assertEquals(18, $countdown->hours);
         $this->assertEquals(4, $countdown->minutes);
-        $this->assertEquals(35, $countdown->seconds); 
+        $this->assertEquals(35, $countdown->seconds);
     }
 
     /**
@@ -42,7 +43,65 @@ class CountDownTest extends TestCase
         $countdown = Countdown::from($start)
                                ->to($end)
                                ->get();
-
+        
         $this->makeAsserts($countdown);
+    }
+
+    /**
+     * @dataProvider providerDates
+     * @expectedException jpmurray\LaravelCountdown\Exceptions\InvalidDateFormatToCountdown
+     */
+    public function testWithInvalidDateToParse($start)
+    {
+        $countdown = Countdown::from((new \stdClass())) // invalid object or
+                               ->to('any invalid string') // invalid string
+                               ->get();
+        
+        $this->makeAsserts($countdown);
+    }
+
+    /**
+     * @dataProvider providerDates
+     */
+    public function testWithDateTimeInterface($start)
+    {
+        $end = new \DateTime('2007-08-14 08:05:10');
+
+        $countdown = Countdown::from($start) // invalid object or
+                               ->to($end) // invalid string
+                               ->get();
+        
+        $this->makeAsserts($countdown);
+    }
+
+    /**
+     * @dataProvider providerDates
+     */
+    public function testWithTimestampDate($start)
+    {
+        $countdown = Countdown::from($start)
+                               ->to(1187078710)
+                               ->get();
+        
+        $this->makeAsserts($countdown);
+    }
+
+    /**
+     * @dataProvider providerDates
+     */
+    public function testWithStandardDateFormat($start)
+    {
+        $end = '2007-08-14';
+
+        $countdown = Countdown::from($start)
+                               ->to($end)
+                               ->get();
+        
+        $this->assertEquals(7, $countdown->years);
+        $this->assertEquals(33, $countdown->weeks);
+        $this->assertEquals(2, $countdown->days);
+        $this->assertEquals(9, $countdown->hours);
+        $this->assertEquals(59, $countdown->minutes);
+        $this->assertEquals(25, $countdown->seconds);
     }
 }
