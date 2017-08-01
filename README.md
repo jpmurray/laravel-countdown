@@ -1,5 +1,8 @@
 # Laravel countdown
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jpmurray/laravel-countdown/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jpmurray/laravel-countdown/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/jpmurray/laravel-countdown/badges/build.png?b=master)](https://scrutinizer-ci.com/g/jpmurray/laravel-countdown/build-status/master)
+
 The `jpmurray/laravel-countdown` and easy way to get the time difference between two dates, with an extra bonus trait for eloquent.
 
 I needed to get the diffrence of time, and while the [very good Carbon](https://github.com/briannesbitt/carbon) gives me helper to retreive difference in time in different time unit (hours, minutes, etc), there is no method to calculate it all at the same time. Carbon's `diffForHumans` is pretty close, but there is no control over how it displays information, and what information it displays.
