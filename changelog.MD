@@ -4,6 +4,11 @@ All Notable changes to `laravel-countdown` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 1.1.0 -2017-08-01
+
+### Added
+- Tests! Thank you [Junior](https://github.com/juniorb2ss)!
+
 ## 1.0.0 - 2017-07-30
 
 First release!
