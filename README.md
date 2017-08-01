@@ -75,7 +75,7 @@ $user->until('trial_ends_at'); // get the time from now until the date in attrib
 
 ## Tests
 
-🎶 One day, my tests will come... 🎶
+- Implemented by [Junior](https://github.com/juniorb2ss)
 
 ## Change log
 
