@@ -8,6 +8,10 @@ php:
 # See: http://docs.travis-ci.com/user/workers/container-based-infrastructure/
 sudo: false
 
+addons:
+    code_climate:
+        repo_token: 3682237329cefba0e6403fb257e547cdc4608bbffdcac5e3d2dbd23fd3b2042d
+
 ## Cache composer
 cache:
   directories:
