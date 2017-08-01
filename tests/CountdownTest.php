@@ -5,7 +5,7 @@ use Tests\TestCase;
 use Carbon\Carbon;
 use Countdown;
 
-class CountDownTest extends TestCase
+class CountdownTest extends TestCase
 {
 
     /**

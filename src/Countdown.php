@@ -210,7 +210,7 @@ class Countdown
     {
         $this->weeks = intval(bcmod((intval($this->delta) / self::SECONDS_PER_WEEK), self::WEEKS_PER_YEAR));
 
-         return $this;
+        return $this;
     }
 
     /**
