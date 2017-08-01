@@ -2,7 +2,12 @@
 
 namespace jpmurray\LaravelCountdown;
 
+use Exception;
 use Carbon\Carbon;
+use DateTimeInterface;
+use Illuminate\Foundation\Application;
+use jpmurray\LaravelCountdown\Exceptions\InvalidArgumentToCountdown;
+use jpmurray\LaravelCountdown\Exceptions\InvalidDateFormatToCountdown;
 
 class Countdown
 {
@@ -27,113 +32,196 @@ class Countdown
     public $seconds;
 
     /**
-     * Sets the time to count from
-     * @param   $time
+     * [__construct description]
+     * @param Carbon $carbon [description]
      */
-    public function from($time)
+    public function __construct(string $timezone, Carbon $carbon)
     {
-        $this->from = $this->convertToCarbon($time);
+        $this->timezone = $timezone;
+        $this->carbon = $carbon->now($this->timezone);
+    }
+
+    /**
+     * Sets the time to count from
+     *
+     * @param string|integer|DateTime|Carbon $time
+     *
+     * @return self
+     */
+    public function from($time) : self
+    {
+        $this->from = $this->asDateTime($time);
+
         return $this;
     }
 
     /**
      * Sets the time to count to
-     * @param   $time
+     *
+     * @param   string|integer|DateTime|Carbon $time
+     *
+     * @return  self
      */
-    public function to($time)
+    public function to($time = null) : self
     {
-        $this->to = $this->convertToCarbon($time);
+        $time ?: $this->carbon;
+
+        $this->to = $this->asDateTime($time);
+
         return $this;
     }
 
     /**
      * Returns the object containing the values for the countdown
+     *
      * @return object
      */
     public function get()
     {
         if (is_null($this->from)) {
-            throw new \Exception("You must at least tell where to count from. ");
+            $this->from = $this->carbon;
         }
 
         if (is_null($this->to)) {
-            $this->to == Carbon::now();
+            $this->to = $this->carbon;
         }
 
         $this->delta = $this->from->diffInSeconds($this->to);
         
-        $this->computeYears()->computeWeeks()->computeDays()->computeHours()->computeMinutes()->computeSeconds();
+        $this->computeYears()
+             ->computeWeeks()
+             ->computeDays()
+             ->computeHours()
+             ->computeMinutes()
+             ->computeSeconds();
 
         return $this;
     }
+
     /**
-     * Takes a time, and if it's a string, try to parse it to a Carbon object
-     * @param  $time
+     * Return a timestamp as DateTime object.
+     *
+     * @param  mixed  $value
+     *
+     * @return \Carbon\Carbon
      */
-    private function convertToCarbon($time)
+    protected function asDateTime($value)
     {
-        if ($time instanceof Carbon) {
-            return $time;
-        }
+        try {
+            // If this value is already a Carbon instance, we shall just return it as is.
+            // This prevents us having to re-instantiate a Carbon instance when we know
+            // it already is one, which wouldn't be fulfilled by the DateTime check.
+            if ($value instanceof Carbon) {
+                return $value;
+            }
 
-        if (is_string($time)) {
-            return Carbon::parse($time, config("app.timezone"));
-        }
+             // If the value is already a DateTime instance, we will just skip the rest of
+             // these checks since they will be a waste of time, and hinder performance
+             // when checking the field. We will just return the DateTime right away.
+            if ($value instanceof DateTimeInterface) {
+                return $this->carbon->instance($value);
+            }
 
-        throw new \Exception("We could not process your time and date.");
+            // If this value is an integer, we will assume it is a UNIX timestamp's value
+            // and format a Carbon object from this timestamp. This allows flexibility
+            // when defining your date fields as they might be UNIX timestamps here.
+            if (is_numeric($value)) {
+                return $this->carbon->createFromTimestamp($value);
+            }
+
+            // If the value is in simply year, month, day format
+            if (is_string($value) && $this->isStandardDateFormat($value)) {
+                return $this->carbon->createFromFormat('Y-m-d', $value)->startOfDay();
+            }
+
+            // Finally
+            return $this->carbon->parse((string)$value);
+        } catch (Exception $e) {
+            throw new InvalidDateFormatToCountdown;
+        }
+    }
+
+    /**
+     * Determine if the given value is a standard date format.
+     *
+     * @param  string  $value
+     *
+     * @return bool
+     */
+    protected function isStandardDateFormat(string $value) : int
+    {
+        return preg_match('/^(\d{4})-(\d{1,2})-(\d{1,2})$/', $value);
     }
 
     /**
      * Compute the number of seconds for the countdown
+     *
+     * @return  self
      */
-    private function computeSeconds()
+    private function computeSeconds() : self
     {
         $this->seconds = intval(bcmod(intval($this->delta), self::SECONDS_PER_MINUTE));
+
         return $this;
     }
 
     /**
      * Compute the number of minutes for the countdown
+     *
+     * @return  self
      */
-    private function computeMinutes()
+    private function computeMinutes() : self
     {
         $this->minutes = intval(bcmod((intval($this->delta) / self::SECONDS_PER_MINUTE), self::MINUTES_PER_HOUR));
+
         return $this;
     }
 
     /**
      * Compute the number of hours for the countdown
+     *
+     * @return  self
      */
-    private function computeHours()
+    private function computeHours() : self
     {
         $this->hours = intval(bcmod((intval($this->delta) / self::SECONDS_PER_HOUR), self::HOURS_PER_DAY));
+
         return $this;
     }
 
     /**
      * Compute the number of days for the countdown
+     *
+     * @return  self
      */
-    private function computeDays()
+    private function computeDays() : self
     {
         $this->days = intval(bcmod((intval($this->delta) / self::SECONDS_PER_DAY), self::DAYS_PER_WEEK));
+
         return $this;
     }
 
     /**
      * Compute the number of weeks for the countdown
+     *
+     * @return  self
      */
-    private function computeWeeks()
+    private function computeWeeks() : self
     {
         $this->weeks = intval(bcmod((intval($this->delta) / self::SECONDS_PER_WEEK), self::WEEKS_PER_YEAR));
+
          return $this;
     }
 
     /**
      * Compute the number of years for the countdown
+     *
+     * @return  self
      */
-    private function computeYears()
+    private function computeYears() : self
     {
         $this->years = intval(intval($this->delta) / self::SECONDS_PER_YEAR);
+
         return $this;
     }
 }
