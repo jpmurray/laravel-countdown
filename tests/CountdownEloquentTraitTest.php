@@ -31,11 +31,12 @@ class CountdownEloquentTraitTest extends TestCase
         $user = User::create([
             'name'       => $this->faker->name,
             'email'      => $this->faker->email,
-            'password'   => \Hash::make($this->faker->password),
+            'password'   => $this->faker->password,
             'created_at' => $date,
             'updated_at' => $date,
         ]);
 
         $this->assertInstanceOf(Countdown::class, $user->elapsed('created_at'));
+        $this->assertInstanceOf(Countdown::class, $user->until('created_at'));
     }
 }

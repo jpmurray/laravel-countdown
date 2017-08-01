@@ -104,4 +104,14 @@ class CountDownTest extends TestCase
         $this->assertEquals(59, $countdown->minutes);
         $this->assertEquals(25, $countdown->seconds);
     }
+
+    /**
+     * Testing without dates
+     */
+    public function testWitDefaultDates()
+    {
+        $countdown = Countdown::get();
+        
+        $this->assertEquals(0, $countdown->seconds);
+    }
 }

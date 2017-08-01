@@ -43,15 +43,15 @@
         }
     },
     "extra": {
-	    "laravel": {
-	        "providers": [
-	            "jpmurray\\LaravelCountdown\\CountdownServiceProvider"
-	        ],
-	        "aliases": {
-	            "Countdown": "jpmurray\\LaravelCountdown\\Facades\\CountdownFacade"
-	        }
-	    }
-	},
+        "laravel": {
+            "providers": [
+                "jpmurray\\LaravelCountdown\\CountdownServiceProvider"
+            ],
+            "aliases": {
+                "Countdown": "jpmurray\\LaravelCountdown\\Facades\\CountdownFacade"
+            }
+        }
+    },
     "scripts": {
         "test": "phpunit",
         "coverage": "phpunit --coverage-text --coverage-clover=coverage.clover",
