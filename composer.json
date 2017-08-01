@@ -23,6 +23,7 @@
     "require": {
         "php": "^7.0",
         "ext-bcmath": "*",
+        "nesbot/carbon": "~1.18",
         "illuminate/support": "5.3.* || 5.4.* || 5.5.*"
     },
     "require-dev": {
