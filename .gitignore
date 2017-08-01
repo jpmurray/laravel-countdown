@@ -3,3 +3,4 @@ vendor
 .idea/
 build/
 composer.lock
+coverage.clover
