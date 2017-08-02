@@ -4,6 +4,12 @@ All Notable changes to `laravel-countdown` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 1.2.0 - 2017-08-02
+
+### Added
+- Added a `toHuman` method to return a string that is human readable (@juniorb2ss)
+- The `toHuman` method accepts a custom string to parse so the returned readable string can be customized / localized (@juniorb2ss)
+
 ## 1.1.0 -2017-08-01
 
 ### Added
