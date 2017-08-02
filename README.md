@@ -4,7 +4,7 @@ The `jpmurray/laravel-countdown` and easy way to get the time difference between
 
 I needed to get the diffrence of time, and while the [very good Carbon](https://github.com/briannesbitt/carbon) gives me helper to retreive difference in time in different time unit (hours, minutes, etc), there is no method to calculate it all at the same time. Carbon's `diffForHumans` is pretty close, but there is no control over how it displays information, and what information it displays.
 
-## • Install
+## Install
 
 You can install this package via composer:
 
@@ -31,7 +31,7 @@ Edit file: `config/app.php`
 ];
 ```
 
-## • Usage
+## Usage
 
 ``` php
 
@@ -66,7 +66,7 @@ $countdown->toHuman(); // 18 years, 33 weeks, 2 days, 18 hours, 4 minutes and 35
 $countdown->toHuman('{days} days, {hours} hours and {minutes} minutes'); // 2 days, 18 hours, 4 minutes
 ```
 
-## • Eloquent Trait
+## Eloquent Trait
 
 ```php
 // For convenience, we provide a trait that you can add to any model in your Laravel app that provides
@@ -80,7 +80,7 @@ class User extends Authenticatable
     //...
 }
 ```
-#### • Example to use Trait:
+#### Example to use Trait:
 ```php
 // This enables the following:
 // You should have casted your attributes to dates beforehand
@@ -89,21 +89,21 @@ $user->elapsed('trial_ends_at'); // get the time elapsed between the date in att
 $user->until('trial_ends_at'); // get the time from now until the date in attribute trial_ends_at
 ```
 
-## • Tests
+## Tests
 
 ```bash
 composer run test
 ```
 
-## • Change log
+## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
-## • Credits
+## Credits
 
 - [Jean-Philippe Murray](https://github.com/jpmurray)
 - [All Contributors](../../contributors)
 
-## • License
+## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
