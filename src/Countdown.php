@@ -229,7 +229,7 @@ class Countdown
 
     /**
      * Fill string with countdown numbers
-     * 
+     *
      * @param  string $string string for fill
      * @throws \jpmurray\LaravelCountdown\Exceptions\InvalidPropertyStringForHumanException
      * @return string
@@ -238,8 +238,8 @@ class Countdown
     {
         // search regex
         preg_match_all(
-            '/{(.*?)}/', 
-            $string, 
+            '/{(.*?)}/',
+            $string,
             $matches
         );
 
@@ -248,7 +248,7 @@ class Countdown
 
         foreach ($peaces as $key => $peace) {
             // Check first class has property
-            if(!property_exists($this, $peace)){
+            if (!property_exists($this, $peace)) {
                 throw new InvalidPropertyStringForHumanException;
             }
 
@@ -262,7 +262,7 @@ class Countdown
 
     /**
      * Return string with countdown to human read
-     * 
+     *
      * @param string $custom Custom string to parse
      * @return string
      */
