@@ -21,6 +21,53 @@ class CountDownTest extends TestCase
     }
 
     /**
+     * @dataProvider providerDates
+     */
+    public function testGetStringForHumansRead($start, $end)
+    {
+        $countdown = Countdown::from($start->toDateTimeString())
+                               ->to($end->toDateTimeString())
+                               ->get();
+
+        $this->assertEquals(
+            '18 years, 33 weeks, 2 days, 18 hours, 4 minutes and 35 seconds',
+            $countdown->toHuman()
+        );
+    }
+
+    /**
+     * @dataProvider providerDates
+     * @expectedException jpmurray\LaravelCountdown\Exceptions\InvalidPropertyStringForHumanException
+     */
+    public function testExceptionStringForHumansHasInvalidProperty($start, $end)
+    {
+        $countdown = Countdown::from($start->toDateTimeString())
+                               ->to($end->toDateTimeString())
+                               ->get();
+
+        $customStringForHuman = '{hours} years, {invalid} weeks, {days} days';
+
+        $countdown->toHuman($customStringForHuman);
+    }
+
+    /**
+     * @dataProvider providerDates
+     */
+    public function testGetStringForHumansReadWithCustomSentence($start, $end)
+    {
+        $countdown = Countdown::from($start->toDateTimeString())
+                               ->to($end->toDateTimeString())
+                               ->get();
+
+        $customStringForHuman = '{hours} years, {weeks} weeks, {days} days';
+
+        $this->assertEquals(
+            '18 years, 33 weeks, 2 days',
+            $countdown->toHuman($customStringForHuman)
+        );
+    }
+
+    /**
      * [makeAsserts description]
      * @param  \jpmurray\LaravelCountdown\Countdown $countdown [description]
      * @return [type]                                          [description]

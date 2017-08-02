@@ -8,6 +8,7 @@ use DateTimeInterface;
 use Illuminate\Foundation\Application;
 use jpmurray\LaravelCountdown\Exceptions\InvalidArgumentToCountdown;
 use jpmurray\LaravelCountdown\Exceptions\InvalidDateFormatToCountdown;
+use jpmurray\LaravelCountdown\Exceptions\InvalidPropertyStringForHumanException;
 
 class Countdown
 {
@@ -20,6 +21,7 @@ class Countdown
     const SECONDS_PER_DAY    = 86400;
     const SECONDS_PER_WEEK   = 604800;
     const SECONDS_PER_YEAR   = 31449600;
+    const STRING_FOR_HUMAN = '{hours} years, {weeks} weeks, {days} days, {hours} hours, {minutes} minutes and {seconds} seconds';
 
     private $from = null;
     private $to = null;
@@ -223,5 +225,51 @@ class Countdown
         $this->years = intval(intval($this->delta) / self::SECONDS_PER_YEAR);
 
         return $this;
+    }
+
+    /**
+     * Fill string with countdown numbers
+     * 
+     * @param  string $string string for fill
+     * @throws \jpmurray\LaravelCountdown\Exceptions\InvalidPropertyStringForHumanException
+     * @return string
+     */
+    private function getStringForHumanRead(string $string) : string
+    {
+        // search regex
+        preg_match_all(
+            '/{(.*?)}/', 
+            $string, 
+            $matches
+        );
+
+        $peaces = $matches[1];
+        $filled = [];
+
+        foreach ($peaces as $key => $peace) {
+            // Check first class has property
+            if(!property_exists($this, $peace)){
+                throw new InvalidPropertyStringForHumanException;
+            }
+
+            $filled[$matches[0][$key]] = $this->{$peace};
+        }
+
+        $string = str_replace(array_keys($filled), array_values($filled), $string);
+
+        return $string;
+    }
+
+    /**
+     * Return string with countdown to human read
+     * 
+     * @param string $custom Custom string to parse
+     * @return string
+     */
+    public function toHuman(string $custom = null) : string
+    {
+        $sentence = ($custom ?: static::STRING_FOR_HUMAN);
+
+        return $this->getStringForHumanRead($sentence);
     }
 }
