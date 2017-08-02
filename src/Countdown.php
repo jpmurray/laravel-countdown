@@ -21,7 +21,8 @@ class Countdown
     const SECONDS_PER_DAY    = 86400;
     const SECONDS_PER_WEEK   = 604800;
     const SECONDS_PER_YEAR   = 31449600;
-    const STRING_FOR_HUMAN = '{hours} years, {weeks} weeks, {days} days, {hours} hours, {minutes} minutes and {seconds} seconds';
+    const STRING_FOR_HUMAN = '{hours} years, {weeks} weeks, {days} days,'
+    . ' {hours} hours, {minutes} minutes and {seconds} seconds';
 
     private $from = null;
     private $to = null;
