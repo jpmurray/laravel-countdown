@@ -9,7 +9,7 @@ use Tests\User;
 
 class CountdownEloquentTraitTest extends TestCase
 {
-   /**
+    /**
      * Setup the test environment.
      */
     public function setUp()
