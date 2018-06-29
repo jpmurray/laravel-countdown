@@ -4,6 +4,9 @@ All Notable changes to `laravel-countdown` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 1.3.0 - 2018-06-29
+- Should insure compatibility with Laravel up to 5.6.
+
 ## 1.2.0 - 2017-08-02
 
 ### Added
