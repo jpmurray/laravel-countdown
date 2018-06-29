@@ -20,7 +20,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         ];
     }
 
-      /**
+    /**
      * Provider data for tests
      * @return array $dates
      */
