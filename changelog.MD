@@ -4,6 +4,10 @@ All Notable changes to `laravel-countdown` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 2.0.0 - 2020-04-07
+- Updated dependencies to work for more recent version of Laravel.
+- Updated Carbon dependency to `^2.0`.
+
 ## 1.3.0 - 2018-06-29
 - Should insure compatibility with Laravel up to 5.6.
 
