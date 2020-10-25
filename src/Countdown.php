@@ -5,8 +5,6 @@ namespace jpmurray\LaravelCountdown;
 use Exception;
 use Carbon\Carbon;
 use DateTimeInterface;
-use Illuminate\Foundation\Application;
-use jpmurray\LaravelCountdown\Exceptions\InvalidArgumentToCountdown;
 use jpmurray\LaravelCountdown\Exceptions\InvalidDateFormatToCountdown;
 use jpmurray\LaravelCountdown\Exceptions\InvalidPropertyStringForHumanException;
 
@@ -22,7 +20,7 @@ class Countdown
     const SECONDS_PER_WEEK   = 604800;
     const SECONDS_PER_YEAR   = 31449600;
     const STRING_FOR_HUMAN = '{hours} years, {weeks} weeks, {days} days,'
-    . ' {hours} hours, {minutes} minutes and {seconds} seconds';
+        . ' {hours} hours, {minutes} minutes and {seconds} seconds';
 
     private $from = null;
     private $to = null;
@@ -51,7 +49,7 @@ class Countdown
      *
      * @return self
      */
-    public function from($time) : self
+    public function from($time): self
     {
         $this->from = $this->asDateTime($time);
 
@@ -65,7 +63,7 @@ class Countdown
      *
      * @return  self
      */
-    public function to($time = null) : self
+    public function to($time = null): self
     {
         $time ?: $this->carbon;
 
@@ -90,13 +88,13 @@ class Countdown
         }
 
         $this->delta = $this->from->diffInSeconds($this->to);
-        
+
         $this->computeYears()
-             ->computeWeeks()
-             ->computeDays()
-             ->computeHours()
-             ->computeMinutes()
-             ->computeSeconds();
+            ->computeWeeks()
+            ->computeDays()
+            ->computeHours()
+            ->computeMinutes()
+            ->computeSeconds();
 
         return $this;
     }
@@ -151,7 +149,7 @@ class Countdown
      *
      * @return bool
      */
-    protected function isStandardDateFormat(string $value) : int
+    protected function isStandardDateFormat(string $value): int
     {
         return preg_match('/^(\d{4})-(\d{1,2})-(\d{1,2})$/', $value);
     }
@@ -161,7 +159,7 @@ class Countdown
      *
      * @return  self
      */
-    private function computeSeconds() : self
+    private function computeSeconds(): self
     {
         $this->seconds = intval(bcmod(intval($this->delta), self::SECONDS_PER_MINUTE));
 
@@ -173,7 +171,7 @@ class Countdown
      *
      * @return  self
      */
-    private function computeMinutes() : self
+    private function computeMinutes(): self
     {
         $this->minutes = intval(bcmod((intval($this->delta) / self::SECONDS_PER_MINUTE), self::MINUTES_PER_HOUR));
 
@@ -185,7 +183,7 @@ class Countdown
      *
      * @return  self
      */
-    private function computeHours() : self
+    private function computeHours(): self
     {
         $this->hours = intval(bcmod((intval($this->delta) / self::SECONDS_PER_HOUR), self::HOURS_PER_DAY));
 
@@ -197,7 +195,7 @@ class Countdown
      *
      * @return  self
      */
-    private function computeDays() : self
+    private function computeDays(): self
     {
         $this->days = intval(bcmod((intval($this->delta) / self::SECONDS_PER_DAY), self::DAYS_PER_WEEK));
 
@@ -209,7 +207,7 @@ class Countdown
      *
      * @return  self
      */
-    private function computeWeeks() : self
+    private function computeWeeks(): self
     {
         $this->weeks = intval(bcmod((intval($this->delta) / self::SECONDS_PER_WEEK), self::WEEKS_PER_YEAR));
 
@@ -221,7 +219,7 @@ class Countdown
      *
      * @return  self
      */
-    private function computeYears() : self
+    private function computeYears(): self
     {
         $this->years = intval(intval($this->delta) / self::SECONDS_PER_YEAR);
 
@@ -235,7 +233,7 @@ class Countdown
      * @throws \jpmurray\LaravelCountdown\Exceptions\InvalidPropertyStringForHumanException
      * @return string
      */
-    private function getStringForHumanRead(string $string) : string
+    private function getStringForHumanRead(string $string): string
     {
         // search regex
         preg_match_all(
@@ -267,7 +265,7 @@ class Countdown
      * @param string $custom Custom string to parse
      * @return string
      */
-    public function toHuman(string $custom = null) : string
+    public function toHuman(string $custom = null): string
     {
         $sentence = ($custom ?: static::STRING_FOR_HUMAN);
 

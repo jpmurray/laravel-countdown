@@ -3,7 +3,6 @@
 namespace jpmurray\LaravelCountdown\Traits;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 
 trait CalculateTimeDiff
 {
@@ -20,7 +19,7 @@ trait CalculateTimeDiff
         $now = Carbon::now();
 
         return $countdown->from($attribute)
-                         ->to($now)->get();
+            ->to($now)->get();
     }
 
     /**
@@ -36,6 +35,6 @@ trait CalculateTimeDiff
         $now = Carbon::now();
 
         return $countdown->from($now)
-                         ->to($attribute)->get();
+            ->to($attribute)->get();
     }
 }
