@@ -11,13 +11,18 @@ I needed to get the diffrence of time, and while the [very good Carbon](https://
 
 You can install this package via composer:
 
-``` bash
+```bash
 $ composer require jpmurray/laravel-countdown
 ```
 
-Unless you are using Laravel 5.5 (in which case, package auto-discovery will do it's magic), you will have to add the service provider and facade to your `config/app.php` file.
+## Usage with Laravel <= 5.5
+
+You should be using versions of this package that are <= 3.0.0.
+
+If you are using a version of Laravel that doesn't support package autodiscovery, you will have to add the service provider and facade to your `config/app.php` file.
 
 Edit file: `config/app.php`
+
 ```php
 'providers' => [
     // ...
@@ -36,7 +41,7 @@ Edit file: `config/app.php`
 
 ## Usage
 
-``` php
+```php
 
 // To get time from 5 years ago until now, you can do the following.
 // Note that you can send a string to the from and to methods, we will
@@ -61,7 +66,7 @@ $countdown->seconds; // 23
 $countdown = Countdown::from($now)
              ->to($now->copy()->addYears(5))
              ->get();
-             
+
 // To return to humans string
 $countdown->toHuman(); // 18 years, 33 weeks, 2 days, 18 hours, 4 minutes and 35 seconds
 
@@ -83,7 +88,9 @@ class User extends Authenticatable
     //...
 }
 ```
+
 #### Example to use Trait:
+
 ```php
 // This enables the following:
 // You should have casted your attributes to dates beforehand
@@ -100,7 +107,7 @@ composer run test
 
 ## Change log
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+Please see [CHANGELOG](changelog.MD) for more information on what has changed recently.
 
 ## Credits
 
