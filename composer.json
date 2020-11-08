@@ -1,64 +1,64 @@
 {
-    "name": "jpmurray/laravel-countdown",
-    "type": "library",
-    "description": "Provide an easy class easy way to get the time difference between two dates, with an extra bonus trait for eloquent",
-    "keywords": [
-        "jpmurray",
-        "countdown",
-        "time",
-        "dates",
-        "elapsed",
-        "until"
-    ],
-    "homepage": "https://github.com/jpmurray/laravel-countdown",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Jean-Philippe Murray",
-            "email": "himself@jpmurray.net",
-            "homepage": "https://github.com/jpmurray/",
-            "role": "Developer"
-        }
-    ],
-    "require": {
-        "php": "^7.0",
-        "ext-bcmath": "*",
-        "nesbot/carbon": "^2.0",
-        "illuminate/support": "5.* || 6.* || 7.*"
-    },
-    "require-dev": {
-        "orchestra/testbench": "~3.0",
-        "phpunit/phpunit" : "~4.0||~5.0",
-        "squizlabs/php_codesniffer": "^2.3",
-        "nesbot/carbon": "^2.0",
-        "mockery/mockery": "dev-master@dev"
-    },
-    "autoload": {
-        "psr-4": {
-            "jpmurray\\LaravelCountdown\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
-    "minimum-stability": "dev",
-    "extra": {
-        "laravel": {
-            "providers": [
-                "jpmurray\\LaravelCountdown\\CountdownServiceProvider"
-            ],
-            "aliases": {
-                "Countdown": "jpmurray\\LaravelCountdown\\Facades\\CountdownFacade"
-            }
-        }
-    },
-    "scripts": {
-        "test": "phpunit",
-        "coverage": "phpunit --coverage-text --coverage-clover=coverage.clover",
-        "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests",
-        "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests",
-        "build": "composer run test && composer run check-style && composer run fix-style && composer run coverage"
+  "name": "jpmurray/laravel-countdown",
+  "type": "library",
+  "description": "Provide an easy class easy way to get the time difference between two dates, with an extra bonus trait for eloquent",
+  "keywords": [
+    "jpmurray",
+    "countdown",
+    "time",
+    "dates",
+    "elapsed",
+    "until"
+  ],
+  "homepage": "https://github.com/jpmurray/laravel-countdown",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jean-Philippe Murray",
+      "email": "himself@jpmurray.net",
+      "homepage": "https://github.com/jpmurray/",
+      "role": "Developer"
     }
+  ],
+  "require": {
+    "php": "^7.0",
+    "ext-bcmath": "*",
+    "nesbot/carbon": "^2.0",
+    "illuminate/support": "6.* || 7.* || 8.*"
+  },
+  "require-dev": {
+    "orchestra/testbench": "~3.0",
+    "phpunit/phpunit": "~4.0||~5.0",
+    "squizlabs/php_codesniffer": "^2.3",
+    "nesbot/carbon": "^2.0",
+    "mockery/mockery": "dev-master@dev"
+  },
+  "autoload": {
+    "psr-4": {
+      "jpmurray\\LaravelCountdown\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "minimum-stability": "dev",
+  "extra": {
+    "laravel": {
+      "providers": [
+        "jpmurray\\LaravelCountdown\\CountdownServiceProvider"
+      ],
+      "aliases": {
+        "Countdown": "jpmurray\\LaravelCountdown\\Facades\\CountdownFacade"
+      }
+    }
+  },
+  "scripts": {
+    "test": "phpunit",
+    "coverage": "phpunit --coverage-text --coverage-clover=coverage.clover",
+    "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests",
+    "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests",
+    "build": "composer run test && composer run check-style && composer run fix-style && composer run coverage"
+  }
 }
